@@ -1,0 +1,401 @@
+% ----------------------- TODO ---------------------------
+% Diese Daten müssen pro Blatt angepasst werden:
+\newcommand{\NUMBER}{1}
+\newcommand{\EXERCISES}{5}
+% Diese Daten müssen einmalig pro Vorlesung angepasst werden:
+\newcommand{\COURSE}{Algebra 1}
+\newcommand{\TUTOR}{Hauck}
+\newcommand{\STUDENTA}{Gounden}
+\newcommand{\STUDENTB}{Marttinen}
+\newcommand{\STUDENTC}{}
+\newcommand{\TODAY}{17.04.2025}
+\newcommand{\DEADLINE}{18.04.2025}
+% ----------------------- TODO ---------------------------
+
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{polynom}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{forloop}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{centernot}
+\usepackage{wasysym}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{ stmaryrd }
+\usepackage{math}
+
+%Definiere Let-Command für algorithmen
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
+
+\input kvmacros
+
+%Größe der Ränder setzen
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+
+%Kopf- und Fußzeile
+\pagestyle {fancy}
+\fancyhead[L]{Tutor: \TUTOR}
+\fancyhead[C]{\COURSE}
+\fancyhead[R]{\TODAY}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{Seite \thepage /\pageref*{LastPage}}
+
+%Formatierung der Überschrift, hier nichts ändern
+\def\header#1#2{
+  \begin{center}
+    {\Large Übungsblatt #1}\\
+    {(Abgabetermin #2)}
+  \end{center}
+}
+
+%Definition der Punktetabelle, hier nichts ändern
+\newcounter{punktelistectr}
+\newcounter{punkte}
+\newcommand{\punkteliste}[2]{%
+  \setcounter{punkte}{#2}%
+  \addtocounter{punkte}{-#1}%
+  \stepcounter{punkte}%<-- also punkte = m-n+1 = Anzahl Spalten[1]
+  \begin{center}%
+  \begin{tabularx}{\linewidth}[]{@{}*{\thepunkte}{>{\centering\arraybackslash} X|}@{}>{\centering\arraybackslash}X}
+      \forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+      {%
+        \thepunktelistectr &
+      }
+      #2 &  $\Sigma$ \\
+      \hline
+      \forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+      {%
+        &
+      } &\\
+      \forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+      {%
+        &
+      } &\\
+    \end{tabularx}
+  \end{center}
+}
+
+\begin{document}
+
+% Hier nichts ändern
+\begin{tabularx}{\linewidth}{m{0.2 \linewidth}X}
+  \begin{minipage}{\linewidth}
+    \STUDENTA\\
+    \STUDENTB\\
+    \STUDENTC
+  \end{minipage} & \begin{minipage}{\linewidth}
+    \punkteliste{1}{\EXERCISES}
+  \end{minipage}\\
+\end{tabularx}
+
+\header{Nr. \NUMBER}{\DEADLINE}
+
+
+
+% ----------------------- TODO ---------------------------
+% Hier werden die Aufgaben/Lösungen eingetragen:
+\section*{Exercise 1}
+\subsection*{1)}
+Since $A=k\llbracket x\rrbracket$ is the ring of formal power series, we only need to show that it doesn't contain nonzero zero divisors.\\
+Let $(a_n)_{n\in\N},(b_n)_{n\in\N}\in A$ such that $(a_n)_{n\in\N}\times(b_n)_{n\in\N}=(0,0,0,\dots)$.\\
+We assume that $(a_n)_{n\in\N}\neq(0,0,0,\dots)\neq(b_n)_{n\in\N}$, so that we may prove what's to be proven by contradiction.\\
+By definition of the multiplication, $(a_n)_{n\in\N}\times(b_n)_{n\in\N}=\bp{\underset{k=1}{\overset{n}{\sum}}a_kb_{n-k}}_{n\in\N}$.\\
+Our proof occurs through induction.\\
+\textbf{IA:}\\
+Let $n=0$
+\[\underset{k=0}{\overset{0}{\sum}}a_kb_{n-k}=0\implies a_0b_0=0\implies a_0=0\vee b_0=0\]
+Without loss of generality we assume that $a_0=0$.\\
+\textbf{IV:}
+\begin{center}
+    Given that $a_i=0$ with $0\leq i\leq n$ for some fixed $n\in\N$, it's to be shown that $a_{n+1}=0$.
+\end{center}
+\textbf{IS:}
+\begin{align*}
+    \underset{k=0}{\overset{n+1}{\sum}}a_kb_{n+1-k}&=0\\
+    a_{n+1}b_0+\underset{k=0}{\overset{n}{\sum}}\underbrace{a_k}_{=0}b_{n+1-k}&=0\\
+    a_{n+1}b_0&=0\implies a_{n+1}=0\vee b_0=0
+\end{align*}
+\textbf{case 1:} $a_{n+1}=0$\\
+This would conclude our induction, prove that $(a_n)_{n\in\N}=(0,0,0,\dots)$, and contradict our assumption at the start.\\
+\textbf{case 2:} $a_{n+1}\neq0\wedge b_0=0$\\
+Then our assumption at the start implies $\exists j\in\N:\forall i\in\N:i<j:b_i=0\wedge b_j\neq0$.\\
+This means $(a_n)_{n\in\N}\times(b_n)_{n\in\N}=(\dots,0,0,a_{n+1}b_j,0,0,\dots)\neq(0,0,0,\dots)$, which is also a contradiction.\\ \\
+Either way, $A$ doesn't contain nonzero zero divisors, making it an integral domain.
+\subsection*{2)}
+Let $f=(a_n)_{n\in\N}\in A^\times$.\\
+Then the inverse is $f^{-1}=(b_n)_{n\in\N}$ with $b_0=a_0^{-1}$ and $b_n=-a_0^{-1}\underset{i=1}{\overset{n}{\sum}}a_ib_{n-i}$.\\
+Subsequently, we'll prove that this is a correct inverse.\\
+Our proof occurs through induction.\\
+\textbf{IA:}\\
+Let $n=0$
+\[\underset{i=0}{\overset{0}{\sum}}a_ib_{n-i}=a_0b_0=a_0a_0^{-1}=1\]
+Let $n=1$
+\[\underset{i=0}{\overset{1}{\sum}}a_ib_{n-i}=a_0b_1+a_1b_0=a_0(-a_0^{-1}a_1a_0^{-1})+a_1a_0^{-1}=0\]
+\textbf{IV:}
+\begin{center}
+    Given that $\underset{i=0}{\overset{k}{\sum}}a_ib_{n-i}=0$ with $1\leq k\leq n$ for some fixed $n\in\N$, it's to be shown that $\underset{i=0}{\overset{n+1}{\sum}}a_ib_{n+1-i}=0$.
+\end{center}
+\textbf{IS:}
+\begin{align*}
+    \underset{i=0}{\overset{n+1}{\sum}}a_ib_{n+1-i}&=a_0b_{n+1}+\underset{i=1}{\overset{n+1}{\sum}}a_ib_{n+1-i}\\
+    &=-a_0a_0^{-1}\underset{i=1}{\overset{n+1}{\sum}}a_ib_{n+1-i}+\underset{i=1}{\overset{n}{\sum}}a_ib_{n+1-i}\\
+    &=0
+\end{align*}
+This means $f$ has an inverse when $a_0^{-1}$ exists, and also if $f$ has an inverse then $a_0^{-1}$ must exist.\\
+Since we proved in \textbf{exercise 1 (1)} that $A$ is an integral domain, $a_0$ having an inverse is equivalent to not being equal to zero, so $A^\times=\bc{\underset{i=0}{\overset{\infty}{\sum}}a_ix^i|a_0\neq0}$ holds true.
+\subsection*{3)}
+Since $A^\times\subset A$, every $u\in A^\times$ can already be expressed in $A$ as $x^0u=u\in A$.\\
+This means it is enough to show that every $f\in A-A^\times$ can be expressed $f=x^nu$ for a $u\in A^\times$ and $n\geq0$.\\
+From \textbf{exercise 1 (2)} we know that $A-A^\times=\bc{\underset{i=0}{\overset{\infty}{\sum}}a_ix^i|a_0=0}$.\\
+Let $(a_n)_{n\in\N}\in A-A^\times$.\\
+Since $a_0=0$, it follows $\exists j\in\N:\forall i\in\N:i<j:a_i=0\wedge a_j\neq0$.\\
+This means $(b_n)_{n\in\N}=(a_{n+j})_{n\in\N}\in A^\times$, as $b_0=a_{0+j}=a_j\neq0$.\\
+Finally, $(a_n)_{n\in\N}$ can be expressed as:
+\[(a_n)_{n\in\N}=\underset{i=0}{\overset{\infty}{\sum}}a_ix^i\underset{\forall i<j:a_i=0}{=}\underset{i=j}{\overset{\infty}{\sum}}a_{i}x^{i}=\underset{i=0}{\overset{\infty}{\sum}}a_{i+j}x^{i+j}=x^j\underset{i=0}{\overset{\infty}{\sum}}a_{i+j}x^{i}=x^j\underset{i=0}{\overset{\infty}{\sum}}b_ix^i=x^j(b_n)_{n\in\N}\]
+\subsection*{4)}
+Since every ring contains the zero ideal, we only need to show that all non-trivial ideals are of the form $(x^n)$ for $n\geq0$.\\
+Let $M=\bc{f_0,f_1,\dots,f_n}\subset A$ be a non-empty subset.\\
+The ideal generated by $M$ is $(M)=\bc{\underset{i=0}{\overset{n}{\sum}}\l_if_i|\l_0,\dots,\l_n\in A}$.\\
+However, \textbf{exercise 1 (3)} tells us that $f_i=x^{m_i}u_i$ for $0\leq i\leq n$, $m_i\geq0$, and $u_i\in A^\times$.\\
+Thus we can write $(M)=\bc{\underset{i=0}{\overset{n}{\sum}}\l_ix^{m_i}u_i|\l_0,\dots,\l_n\in A}$, and since $\l_i$ are arbitrary, we can simplify the term by setting $l\i=g_iu_i^{-1}$ for an arbitrary $g_i\in A$:
+\[(M)=\bc{\underset{i=0}{\overset{n}{\sum}}g_ix^{m_i}|g_0,\dots,g_n\in A}\]
+So $(M)=(\bc{x^{m_0},x^{m_1},\dots,x^{m_n}})$, which can be simplified to $(M)=(\bc{x^m})$ (for $m=\min\bc{m_0,\dots,m_n}$), since $x^m|x^{m_i}$ for $0\leq i\leq n$.
+\section*{Exercise 2}
+\subsection*{1)}
+Since $m_P$ and $A$ are both ideals, their intersection $m_P\cap A$ is also an ideal.\\
+It is to be shown that $m_P\cap A$ is maximal.\\
+Let the following ring homomorphisms:
+\[ev_P:\begin{matrix}
+    \\
+    A&\rightarrow& K\\
+    f&\mapsto&f\of{P}
+\end{matrix}\qquad\text{and}\qquad \pi:\begin{matrix}
+    \\
+    A&\rightarrow& A/m_P\cap A\\
+    f&\mapsto&f+m_P\cap A
+\end{matrix}\]
+Then any $f\in A$ is precisely $f\in\ker\of{ev_P}$ if and only if $ev_P\of{f}=0$.\\
+And since $m_P$ is the ideal, which only includes all functions with a zero evaluated at $P$, $m_P\cap A$ is the ideal, which only includes all functions in $A$ with a zero evaluated at $P$. In other words, $\ker\of{ev_P}=m_P\cap A$.\\
+This means that $\pi:A\rightarrow A/\ker\of{ev_P}$.\\
+By \textbf{Theorem 1.1.10 (4)} this implies that there exists a unique and injective $g:A\rightarrow A/m_P\cap A$, such that:
+\[\begin{tikzcd}
+    A \arrow{r}{\pi} \arrow[swap]{dr}{ev_P} & A/\ker\of{ev_P} \arrow{d}{g}\\
+    & k &
+\end{tikzcd}\]
+induces the ring isomorphism $\underbrace{A/\ker\of{ev_P}}_{=A/m_P\cap A}\cong \underbrace{ev_P\of{A}}_{k}$.\\
+Thus, $A/m_P\cap A$ is a field, and by \textbf{theorem 1.1.11 (2)}, also maximal.
+\subsection*{2)}
+Since $A=k\bs{x_1,\dots,x_n}$, $m\subset A$, and $m$ maximal $\overset{\textbf{theorem 1.1.11 (2)}}{\implies} A/m$ field, \textbf{corollary 1.1.17} states that $A/m$ must be isomorphic to some finitely generated $k$-algebra $B$.\\
+$B$ being a finitely generated $k$-algebra means there exists a ring homomorphism $\f:k\rightarrow B$, though since $k$ and $B$ are both fields $f$ is actually a homomorphism between fields, which is the exact definition of a field extension.\\
+And since $A/m\cong B$, it means $A/m$ is also a finite field extension of $k$.
+\subsection*{3)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{Exercise 3}
+Let $A$ be a boolean ring and $a\in A$.
+\subsection*{1)}
+Then
+\[2a\overset{A\text{ boolean}}{=}(2a)^2=4a^2\overset{A\text{ boolean}}{=}4a\implies0=2a\]
+\subsection*{2)}
+Note: $\forall a,b\in A: ab(a+b)=a^2b+ab^2=ab+ab=2ab=0$.\\
+Let $\mathfrak{p}\subset A$ be a prime ideal.\\
+Then $\forall a,b\not\in\mathfrak{p}:ab\not\in\mathfrak{p}$, but $ab(a+b)=0\in\mathfrak{p}$.\\
+Since for all $xy\in\mathfrak{p}$ either $x\in\mathfrak{p}$ or $y\in\mathfrak{p}$, this means:
+\[\forall a,b\not\in\mathfrak{p}:\underbrace{ab}_{\not\in\mathfrak{p}}(a+b)=0\in\mathfrak{p}\implies a+b\in\mathfrak{p}\]
+Let $\mathfrak{p}\subsetneq I\subset A$ be an ideal.\\
+Then for any $x\in I$ but $x\not\in\mathfrak{p}$:
+\[\forall y\not\in\mathfrak{p}:x+y\in\mathfrak{p}\overset{\mathfrak{p}\subsetneq I}{\implies}x+y\in I\overset{(I,+)\text{ group}}{\underset{x\in I}{\implies}}x+x+y=2x+y=y\in I\]
+, meaning $I=A$, so $\mathfrak{p}$ is maximal.\\ \\
+Now we prove that $A/\mathfrak{p}\cong\mathbb{F}_2$.\\
+Since we know $\forall a,b\not\in\mathfrak{p}:a+b\in\mathfrak{p}$, it follows that $a+a+b=b\in a+\mathfrak{p}$, meaning that $a+\mathfrak{p}$ is the set of all elements not in $\mathfrak{p}$.\\
+This implies $A/\mathfrak{p}=\bc{0+\mathfrak{p},a+\mathfrak{p}}$ for an $a\not\in\mathfrak{p}$.\\
+Thus, $A/\mathfrak{p}$ is a field with:
+\[(0+\mathfrak{p})+(0+\mathfrak{p})=(0+\mathfrak{p})\qquad(0+\mathfrak{p})+(a+\mathfrak{p})=(a+\mathfrak{p})\qquad(a+\mathfrak{p})+(a+\mathfrak{p})=(0+\mathfrak{p})\]
+and
+\[(0+\mathfrak{p})(0+\mathfrak{p})=(0+\mathfrak{p})\qquad(0+\mathfrak{p})(a+\mathfrak{p})=(0+\mathfrak{p})\qquad(a+\mathfrak{p})(a+\mathfrak{p})=(a+\mathfrak{p})\]
+, so $A/\mathfrak{p}\cong\mathbb{F}_2$.
+\subsection*{3)}
+%possible solution: $(M\cup\bc{a})=(M)$ for $\emptyset\neq M\subset A$ and $a\in A$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{Exercise 4}
+Let $A$ be a ring and $I,J\subseteq A$ ideals.
+\subsection*{1)}
+Let $b\in (I:J)$.\\
+By the definition of the coset:
+\[bJ\subseteq I\Longleftrightarrow \forall j\in J:bj\in I\]
+And since for all $i\in I$ and $x\in A$ their product $xi\in I$, it follows that:
+\[(\forall a\in A:abj\in I)\implies ab\in (I:J)\]
+So for all $b\in(I:J)$ and $a\in A$ their product $ab\in(I:J)$, meaning $(I:J)$ is an ideal.
+\subsection*{2)}
+Let $M=\bc{\mathfrak{p}\subseteq A\text{ prime ideal}|I\subseteq\mathfrak{p},J\not\subseteq\mathfrak{p}}$.
+\subsubsection*{"$\subset$":}
+Let $a\in(\sqrt{I}:J)$.\\
+Then $\forall j\in J:\exists m\in\Z_{>0}:(aj)^m\in I$.\\
+Since $I\subset\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}$, it means that $(aj)^m\in\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}$.\\
+And since $\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}$ is a prime ideal, it follows:
+\[\underbrace{aj\cdots aj}_{m\text{ times}}\in\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}\implies aj\in\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}\implies a\in\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}\vee j\in \underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}\]
+However $j\in \underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}$ would be a contradiction for some $j\in J$, since $J\not\subseteq\mathfrak{p}$ for all $\mathfrak{p}\in M$.\\
+Thus $a\in\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}$.
+\subsubsection*{"$\supset$":}
+Let $a\in\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}$.\\
+Let $j\in J$.\\
+Then $aj\in\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}$.\\
+Since $M\subseteq\bc{\mathfrak{p}\subseteq A\text{ prime ideal}|I\subseteq\mathfrak{p}}$, it follows by \textbf{corollary 1.3.9}, that:
+\[\underset{\mathfrak{p}\in M}{\bigcap}\mathfrak{p}\subseteq\underset{\underset{\mathfrak{p}\text{ prime ideal}}{I\subseteq\mathfrak{p}}}{\bigcap}\mathfrak{p}=\sqrt{I}\]
+So $aj\in\sqrt{I}$, meaning there exists an $m\in\Z_{>0}$ such that $(aj)^m\in I$, which directly implies $a\in(\sqrt{I}:J)$.
+\subsection*{3)}
+Since $k$ is algebraically closed, every polynomial in $k\bs{x_1,\dots,x_n}$ can be written as be expressed as the product of linear combinations $(x_1-a_1,\dots,x_n-a_n)$ with $a_i\in k$ for $1\leq i\leq n$.
+\subsubsection*{"$\subset$":}
+Let $f=\underset{k=1}{\overset{\deg\of{f}}{\prod}}(x_1-a_{k_1},\dots,x_n-a_{k_n})\in(I\of{X}:I\of{Y})$.\\
+Then for all $g=\underset{k=1}{\overset{\deg\of{g}}{\prod}}(x_1-y_{k_1},\dots,x_n-y_{k_n})\in I\of{Y}:f\times g\in I\of{X}$.\\
+This means $X\subseteq V\of{\bc{f\times g}}$, since $f\times g\in I\of{X}$ means all the elements in $X$ are zeroes in $f\times g$.\\
+This also means that for every $h\in I\of{X\cap Y}$ with $h|g$, we have $X\subseteq V\of{\bc{f\times h}}$, since every element in $X\cap Y$ is a zero in $h$, and every element in $X-Y$ must be a zero in $f$ (since $f\times g\in I\of{X}\implies\forall x\in X-Y:f(x)=0\vee g(x)=0$, and $g(x)\neq0$ since $g\in I\of{Y}$).
+However every element of $X-Y$ being a zero in $f$ means $f\in I\of{X-Y}$.
+\subsubsection*{"$\supset$":}
+Let $f\in I\of{X-Y}$.\\
+Then $\forall x\in X-Y:f\of{x}=0$.\\
+Let $g\in I\of{Y}$.\\
+Then $\forall y\in Y:g\of{y}=0$.\\
+This means $(\forall x\in X:x\in X-Y\vee x\in Y)\implies (f\times g)\of{x}=0$.\\
+Furthermore, $\forall h\in I\of{Y}:f\times h\in I\of{X}$, which implies $f\in(I\of{X}:I\of{Y})$.
+\section*{Exercise 5}
+\subsection*{1)}
+$V(I)$ is the set of all $a,b\in k$, for which $a^2-b^3=0$.\\
+Just like the exercise suggests, we assume $k=\C$ and draw the real valued points:
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+                axis lines=middle,
+                xlabel=$x$,
+                ylabel=$y$,
+                xmin=-0.5, xmax=6.5,
+                ymin=-2.5, ymax=2.5,
+                xtick={0,1,2,3,4,5,6},
+                ytick={-2,-1,0,1,2},
+                samples=100,
+                domain=0:2,
+                ]
+            \addplot [thick, blue] {sqrt(x^3)};
+            \addplot [thick, blue] {-sqrt(x^3)};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+\subsection*{2)}
+\subsubsection*{"injective":}
+Let $a,b\in k$ such that $f\of{a}=f\of{b}$.\\
+Then $(a^{-2},a^{-3})=(b^{-2},b^{-3})\implies a^{-2}=b^{-2}\wedge a^{-3}=b^{-3}$.\\
+This means:
+\[a=a^3a^{-2}=a^3b^{-2}=\bp{a^{-3}}^{-1}b^{-2}=\bp{b^{-3}}^{-1}b^{-2}=b^3b^{-2}=b\]
+So $f\of{a}=f\of{b}\implies a=b$.
+\subsubsection*{"surjective":}
+Let $(x,y)\in V\of{I}-\bc{(0,0)}$.\\
+Then we know that $y^2-x^3=0$, which implies $y^2=x^3$.\\
+Then we choose $a\in k-\bc{0}$ as $a=x^{-\frac{1}{2}}$, which gives us $a=\bp{x^3}^{-\frac{1}{6}}=y^{-\frac{1}{3}}$.\\
+It follows:
+\[f\of{a}=(a^{-2},a^{-3})=\bp{\bp{x^{-\frac{1}{2}}}^{-2},\bp{y^{-\frac{1}{3}}}^{-3}}=(x,y)\]
+We see that $f\of{0,0}$ is undefined, which we assign to be $f\of{0,0}=O$.\\
+So every element in $V\of{I}-\bc{(0,0)}\sqcup O$ has an element in $k$, which is assigned through $f$.
+\subsection*{3)}
+Let $a,b\in k$ with $a\neq0\neq b$ and $a\neq b\neq -b$.\\
+Then
+\[y(x)=\overbrace{\frac{a^{-3}-b^{-3}}{a^{-2}-b^{-2}}}^mx-\overbrace{\frac{a^{-3}-b^{-3}}{a^{-2}-b^{-2}}a^{-2}+a^{-3}}^c\]
+is the line through $f\of{a}$ and $f\of{b}$.\\
+If what's to be shown is indeed correct then $f\of{a+b}=\bp{\bp{a+b}^{-2},\bp{a+b}^{-3}}\in V\of{I}$ means that $y\of{\bp{a+b}^{-2}}=-\bp{a+b}^{-3}=-\frac{1}{\bp{a+b}^3}$.\\
+We calculate that:
+\begin{align*}
+    y\of{\bp{a+b}^{-2}}&=\frac{a^{-3}-b^{-3}}{a^{-2}-b^{-2}}\bp{a+b}^{-2}-\frac{a^{-3}-b^{-3}}{a^{-2}-b^{-2}}a^{-2}+a^{-3}\\
+    &\\
+    &=\frac{\frac{1}{a^3}-\frac{1}{b^3}}{\frac{1}{a^2}-\frac{1}{b^2}}\frac{1}{\bp{a+b}^2}-\frac{\frac{1}{a^3}-\frac{1}{b^3}}{\frac{1}{a^2}-\frac{1}{b^2}}\frac{1}{a^2}+\frac{1}{a^3}\\
+    &\\
+    &=\frac{\frac{b^3-a^3}{a^3b^3}}{\frac{b^2-a^2}{a^2b^2}}\frac{1}{\bp{a+b}^2}-\frac{\frac{b^3-a^3}{a^3b^3}}{\frac{b^2-a^2}{a^2b^2}}\frac{1}{a^2}+\frac{1}{a^3}\\
+    &\\
+    &=\frac{\bp{b^3-a^3}a^2b^2}{\bp{b^2-a^2}a^3b^3}\frac{1}{\bp{a+b}^2}-\frac{\bp{b^3-a^3}a^2b^2}{\bp{b^2-a^2}a^3b^3}\frac{1}{a^2}+\frac{1}{a^3}\\
+    &\\
+    &=\frac{a^2b^5-a^5b^2}{a^3b^5-a^5b^3}\bp{\frac{1}{\bp{a+b}^2}-\frac{1}{a^2}}+\frac{1}{a^3}\\
+    &\\
+    &=\frac{a^2b^5-a^5b^2}{a^3b^5-a^5b^3}\frac{-2ab-b^2}{a^4+2a^3b+a^2b^2}+\frac{1}{a^3}\\
+    &\\
+    &=\frac{-2a^3b^6-a^2b^7+
+    2a^6b^3+a^5b^4}{2a^6b^6+a^5b^7-a^9b^3-2a^8b^4}+\frac{2a^3b^6+a^2b^7-a^6b^3-2a^5b^4}{2a^6b^6+a^5b^7-a^9b^3-2a^8b^4}\\
+    &\\
+    &=\frac{a^6b^3-a^5b^4}{2a^6b^6+a^5b^7-a^9b^3-2a^8b^4}\\
+    &\\
+    &=\frac{a-b}{2ab^3+b^4-a^4-2a^3b}=\frac{a-b}{\bp{a-b}\bp{-a^3-b^3-3a^2b-3ab^2}}=-\frac{1}{\bp{a+b}^3}\\
+\end{align*}
+So the interception $(c,d)$ of $V\of{I}$ and the line passing through $f\of{a},f\of{b}$ truly satisfies $f\of{a+b}=(c,-d)$.\\
+For the case $a=b\neq0$:
+The line through $f\of{a}$ and $f\of{b}$ must then be a tangent, and
+\[f\of{a+b}=f\of{2a}=\bp{\frac{1}{4}a^{-2},\frac{1}{4}a^{-3}}\]
+means its slope is exactly
+\[\frac{a^{-3}-\frac{1}{8}a^{-3}}{a^{-2}-\frac{1}{4}a^{-2}}=\frac{\frac{8-1}{8a^3}}{\frac{4-1}{4a^2}}=\frac{36a^2}{24a^3}=\frac{3}{2a}\]
+, which is equal to the slope of the derivative of the cusp:
+\[y=\pm x^{\frac{3}{2}}\implies \frac{dy}{dx}(a)=\frac{3}{2a}\]
+So the claim still holds true.\\
+For the case $a=b=0$:\\
+There is no interception, since there is no line through $f\of{0}$ and $f\of{0}$, so it is undefined at this point.\\
+For the case $a=-b\neq0$:\\
+The line through $f\of{a}$ and $f\of{b}$ is simply a vertical, meaning there is no third intersection, and $f\of{a+b}=f\of{0}$, so it is also undefined.
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
